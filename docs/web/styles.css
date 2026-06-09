@@ -34,7 +34,8 @@ select {
 .app-shell {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .stage {
@@ -89,7 +90,8 @@ select {
 .side-panel {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
-  min-height: 100vh;
+  min-height: 0;
+  height: 100%;
   border-left: 1px solid var(--line);
   background: var(--panel);
   box-shadow: -14px 0 28px var(--shadow);
@@ -279,7 +281,7 @@ select {
   }
 
   .side-panel {
-    min-height: 48vh;
+    min-height: 0;
     border-left: 0;
     border-top: 1px solid var(--line);
   }
