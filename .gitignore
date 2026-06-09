@@ -1,0 +1,17 @@
+# Ambientes virtuais e caches do Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Configurações locais do Claude Code
+.claude/
+
+# Save do jogo (estado do jogador, não versionar)
+save_pedravale.json
+
+# Artefatos de build (PyInstaller)
+build/
+dist/
+*.spec
+*.egg-info/

@@ -1,0 +1,30 @@
+[project]
+name = "cronicas-de-pedravale"
+version = "2.0.0"
+description = "RPG de aventura por escolhas, medieval, em Python + Pygame (modo gráfico, sprites pixel-art e animações)."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+# Único requisito de runtime: pygame (renderização gráfica).
+dependencies = ["pygame>=2.5"]
+
+[project.optional-dependencies]
+dev = ["ruff"]
+
+[tool.ruff]
+target-version = "py39"
+line-length = 100
+# A versão Tkinter foi removida; o jogo vive em pygame_version/.
+extend-exclude = ["build", "dist"]
+
+[tool.ruff.lint]
+# pyflakes (F) + pycodestyle errors (E) + bugbear (B) + comprehensions (C4).
+select = ["E", "F", "B", "C4"]
+ignore = [
+    # Ponto-e-vírgula é uma escolha de densidade deliberada nos helpers de
+    # desenho (backgrounds/assets/particles) e em setup compacto de teste.
+    "E702",
+    # Linhas longas: o jogo tem muitas strings de narrativa/log que ficam mais
+    # legíveis numa linha só do que quebradas.
+    "E501",
+]
