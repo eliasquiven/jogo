@@ -1227,12 +1227,15 @@ function sceneName() {
 function drawCombat(w, h) {
   const enemy = app.combat.enemy;
   const ground = h * 0.8;
-  const heroH = Math.min(h * 0.46, 330);
-  const enemyH = enemy.chefe ? Math.min(h * 0.66, 460) : Math.min(h * 0.52, 360);
+  // Tamanho baseado na menor dimensão: escala bem em paisagem e retrato.
+  const base = Math.min(w, h);
+  const heroH = base * 0.5;
+  const enemyH = enemy.chefe ? base * 0.72 : base * 0.56;
+  const barW = Math.min(280, w * 0.4);
   drawHero(w * 0.27, ground, heroH);
   drawEnemy(enemy, w * 0.72, ground, enemyH);
-  drawHpBar(w * 0.27 - 130, Math.max(8, ground - heroH - 48), 260, 16, app.player.hp / app.player.hp_max, app.player.nome);
-  drawHpBar(w * 0.72 - 160, Math.max(8, ground - enemyH - 48), 320, 16, enemy.hp / enemy.hp_max, enemy.nome);
+  drawHpBar(w * 0.27 - barW / 2, Math.max(8, ground - heroH - 48), barW, 16, app.player.hp / app.player.hp_max, app.player.nome);
+  drawHpBar(w * 0.72 - barW / 2, Math.max(8, ground - enemyH - 48), barW, 16, enemy.hp / enemy.hp_max, enemy.nome);
 }
 
 // Desenha um sprite RGBA contido numa altura `h`, ancorado pelos pés em (cx, baseY).
@@ -1331,9 +1334,14 @@ function drawMapLabels(w, h) {
 }
 
 function resizeCanvas() {
+  // Resolução virtual de largura fixa: o buffer mantém o MESMO aspecto do
+  // display (sem distorção em retrato) e o desenho fica consistente entre
+  // telas. A CSS escala o buffer para o tamanho real do elemento.
   const rect = el.canvas.getBoundingClientRect();
-  el.canvas.width = Math.max(640, Math.floor(rect.width));
-  el.canvas.height = Math.max(360, Math.floor(rect.height));
+  const VW = 1280;
+  const aspect = rect.width > 0 ? rect.height / rect.width : 0.5625;
+  el.canvas.width = VW;
+  el.canvas.height = Math.max(1, Math.round(VW * aspect));
   drawScene();
 }
 
