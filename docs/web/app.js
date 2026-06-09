@@ -615,6 +615,7 @@ function playerAttack(attack) {
 }
 
 function playerDefend() {
+  if (!app.combat || app.combat.terminado) return;
   app.combat.jogadorDefendendo = true;
   const regen = Math.floor(app.player.recurso_max * 0.18);
   app.player.recurso = clamp(app.player.recurso + regen, 0, app.player.recurso_max);
@@ -636,6 +637,7 @@ function itemWouldWork(item) {
 }
 
 function useCombatItem(item) {
+  if (!app.combat || app.combat.terminado) return;
   if (!itemWouldWork(item)) {
     log(`${item.nome} não teria efeito agora.`, "system");
     return;
@@ -684,6 +686,7 @@ function captureChance(usouEsfera) {
 }
 
 function playerCapture(usouEsfera) {
+  if (!app.combat || app.combat.terminado) return;
   const enemy = app.combat.enemy;
   if (enemy.chefe) {
     log("Criaturas tão poderosas não podem ser capturadas.", "system");
@@ -702,6 +705,7 @@ function playerCapture(usouEsfera) {
 }
 
 function playerRun() {
+  if (!app.combat || app.combat.terminado) return;
   if (app.combat.enemy.chefe) {
     log("Não há para onde fugir.", "system");
     return;
@@ -807,7 +811,10 @@ function loseCombat() {
   renderAll();
 }
 
-function finishCombat() {
+function finishCombat(resultado) {
+  // resultado ("vitoria" | "captura" | "fuga") é informativo; em todos os casos
+  // o destino é destinationAfterCombat — paridade com fim_combate() da versão Pygame.
+  void resultado;
   app.combat = null;
   if (app.player.pontos_atributo > 0) renderAttributes(() => goToNode(app.destinationAfterCombat));
   else goToNode(app.destinationAfterCombat);
