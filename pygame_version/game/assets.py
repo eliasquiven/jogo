@@ -13,8 +13,11 @@ from . import theme
 
 TD = 16  # tamanho do tile no tiny-dungeon (packed, sem margem)
 
-# Heróis (col, row) no tiny_dungeon.png
+# Heróis (col, row) no tiny_dungeon.png (fallback se a arte dedicada faltar)
 HEROI_TILE = {"Cavaleiro": (0, 8), "Mago": (0, 7), "Arqueiro": (4, 9)}
+
+# Arte dedicada por classe (issue #1). Fallback: HEROI_TILE.
+HEROI_ART = {"Cavaleiro": "cavaleiro.png", "Mago": "mago.png", "Arqueiro": "arqueira.png"}
 
 # Monstros com bom equivalente Kenney
 MONSTRO_TILE = {"Slime": (0, 9), "Goblin": (1, 9)}
@@ -181,12 +184,15 @@ _PROC = {
     "spirit": _spirit, "dragon": _dragon,
 }
 
-# Inimigo (por substring no nome) -> ('tile',(c,r)) ou ('proc', chave)
+# Inimigo (por substring no nome) -> ('tile',(c,r)), ('proc', chave) ou
+# ('img', arquivo[, chave_proc_fallback]). Arte dedicada da issue #1.
 MONSTRO_ART = {
     "Slime": ("tile", (0, 9)), "Goblin": ("tile", (1, 9)),
-    "Lobo": ("proc", "wolf"), "Esqueleto": ("proc", "skeleton"),
-    "Orc": ("proc", "orc"), "Troll": ("proc", "troll"),
-    "Drag": ("img", "dragao_vorthak.png"),   # arte dedicada (issue #7); fallback procedural
+    "Lobo": ("img", "lobo.png", "wolf"),
+    "Esqueleto": ("img", "esqueleto.png", "skeleton"),
+    "Orc": ("img", "orc.png", "orc"),
+    "Troll": ("img", "troll.png", "troll"),
+    "Drag": ("img", "dragao_vorthak.png", "dragon"),   # arte dedicada (issue #7)
 }
 
 
@@ -221,20 +227,22 @@ class Assets:
                 self._imgs[nome] = None
         return self._imgs[nome]
 
-    def _arte(self, kind, val):
+    def _arte(self, kind, val, fallback="dragon"):
         """Resolve (kind, val) para uma surface base: tile Kenney, pixel-art
         procedural ou imagem dedicada (com fallback procedural)."""
         if kind == "tile":
             return self.tile(*val)
         if kind == "img":
             img = self._imagem(val)
-            return img if img is not None else self._proc_base("dragon")
+            return img if img is not None else self._proc_base(fallback)
         return self._proc_base(val)
 
     def _escalar_altura(self, base, altura):
         w, h = base.get_size()
         nova_w = max(1, int(w * altura / h))
-        return pygame.transform.scale(base, (nova_w, altura))
+        # smoothscale para artes ilustradas (grandes); nearest para pixel-art.
+        escalar = pygame.transform.smoothscale if h > 64 else pygame.transform.scale
+        return escalar(base, (nova_w, altura))
 
     # --- API pública ---
     def heroi(self, classe, altura, face=1):
@@ -260,24 +268,30 @@ class Assets:
         return surf
 
     def _base_heroi(self, classe):
+        nome = HEROI_ART.get(classe)
+        if nome:
+            img = self._imagem(nome)
+            if img is not None:
+                return img
         c, r = HEROI_TILE.get(classe, (0, 8))
         return self.tile(c, r)
 
     def _base_inimigo(self, nome):
-        for chave, (kind, val) in MONSTRO_ART.items():
+        for chave, art in MONSTRO_ART.items():
             if chave in nome:
-                return self._arte(kind, val)
+                return self._arte(*art)
         return self.tile(1, 9)  # default goblin
 
     def _base_aliado(self, nome):
         n = nome.lower()
         if "lobo" in n:
-            return self._proc_base("wolf")
+            img = self._imagem("lobo.png")
+            return img if img is not None else self._proc_base("wolf")
         if "espírito" in n or "espirito" in n:
             return self._proc_base("spirit")
-        for chave, (kind, val) in MONSTRO_ART.items():
+        for chave, art in MONSTRO_ART.items():
             if chave.lower() in n:
-                return self._arte(kind, val)
+                return self._arte(*art)
         if "selene" in n:
             return self.tile(4, 9)   # ranger
         return self.tile(2, 7)       # aldeão genérico

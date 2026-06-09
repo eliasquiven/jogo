@@ -139,6 +139,10 @@ const HERO_TILES = {
   Arqueiro: [4, 9],
 };
 
+// Arte dedicada (issue #1). Fallback: tiles do tiny_dungeon acima.
+const CLASS_SPRITE = { Cavaleiro: "cavaleiro.png", Mago: "mago.png", Arqueiro: "arqueira.png" };
+const ENEMY_SPRITE = { Lobo: "lobo.png", Esqueleto: "esqueleto.png", Orc: "orc.png", Troll: "troll.png" };
+
 const app = {
   story: {},
   player: null,
@@ -1222,13 +1226,27 @@ function sceneName() {
 
 function drawCombat(w, h) {
   const enemy = app.combat.enemy;
-  drawHero(w * 0.25, h * 0.62, 120);
-  drawEnemy(enemy, w * 0.7, h * 0.56, enemy.chefe ? 280 : 150);
-  drawHpBar(w * 0.16, h * 0.72, 260, 18, app.player.hp / app.player.hp_max, app.player.nome);
-  drawHpBar(w * 0.58, h * 0.72, 320, 18, enemy.hp / enemy.hp_max, enemy.nome);
+  const ground = h * 0.8;
+  const heroH = Math.min(h * 0.46, 330);
+  const enemyH = enemy.chefe ? Math.min(h * 0.66, 460) : Math.min(h * 0.52, 360);
+  drawHero(w * 0.27, ground, heroH);
+  drawEnemy(enemy, w * 0.72, ground, enemyH);
+  drawHpBar(w * 0.27 - 130, Math.max(8, ground - heroH - 48), 260, 16, app.player.hp / app.player.hp_max, app.player.nome);
+  drawHpBar(w * 0.72 - 160, Math.max(8, ground - enemyH - 48), 320, 16, enemy.hp / enemy.hp_max, enemy.nome);
+}
+
+// Desenha um sprite RGBA contido numa altura `h`, ancorado pelos pés em (cx, baseY).
+function drawSpriteByHeight(img, cx, baseY, h) {
+  const dw = img.width * (h / img.height);
+  ctx.drawImage(img, cx - dw / 2, baseY - h, dw, h);
 }
 
 function drawHero(cx, cy, size) {
+  const sprite = image(assetPath(CLASS_SPRITE[app.player.classe] || ""));
+  if (sprite) {
+    drawSpriteByHeight(sprite, cx, cy, size);
+    return;
+  }
   const tiny = image(assetPath("tiny_dungeon.png"));
   const tile = HERO_TILES[app.player.classe] || HERO_TILES.Cavaleiro;
   if (tiny) {
@@ -1247,18 +1265,27 @@ function drawEnemy(enemy, cx, cy, size) {
     drawContain(dragon, cx - size / 2, cy - size / 2, size, size * 0.8);
     return;
   }
+  const spriteKey = Object.keys(ENEMY_SPRITE).find((name) => enemy.nome.includes(name));
+  const sprite = spriteKey && image(assetPath(ENEMY_SPRITE[spriteKey]));
+  if (sprite) {
+    drawSpriteByHeight(sprite, cx, cy, size);
+    return;
+  }
+  // Fallback em tile pixel-art (Goblin/Slime): limita o tamanho para não
+  // ampliar o sprite de 16px a ponto de ficar excessivamente blocado.
+  const tileSize = Math.min(size, 170);
   const tiny = image(assetPath("tiny_dungeon.png"));
   const key = Object.keys(ENEMY_TILES).find((name) => enemy.nome.includes(name));
   if (tiny && key) {
     const tile = ENEMY_TILES[key];
     ctx.imageSmoothingEnabled = false;
-    ctx.drawImage(tiny, tile[0] * 16, tile[1] * 16, 16, 16, cx - size / 2, cy - size, size, size);
+    ctx.drawImage(tiny, tile[0] * 16, tile[1] * 16, 16, 16, cx - tileSize / 2, cy - tileSize, tileSize, tileSize);
     ctx.imageSmoothingEnabled = true;
     return;
   }
   ctx.fillStyle = "#9f4f45";
   ctx.beginPath();
-  ctx.ellipse(cx, cy - size / 2, size / 2, size / 2.4, 0, 0, Math.PI * 2);
+  ctx.ellipse(cx, cy - tileSize / 2, tileSize / 2, tileSize / 2.4, 0, 0, Math.PI * 2);
   ctx.fill();
 }
 
@@ -1322,6 +1349,8 @@ async function init() {
       assetPath("mapa.jpg"),
       assetPath("tiny_dungeon.png"),
       assetPath("dragao_vorthak.png"),
+      ...Object.values(CLASS_SPRITE).map((f) => assetPath(f)),
+      ...Object.values(ENEMY_SPRITE).map((f) => assetPath(f)),
     ].map(loadImage)),
   ]);
   app.story = story;
