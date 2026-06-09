@@ -1,0 +1,693 @@
+{
+  "inicio": {
+    "texto": "As Crônicas de Pedravale começam.\n\nVocê chega à pequena vila de Pedravale ao entardecer. Fumaça sobe das casas de pedra e os aldeões correm assustados: monstros das Cavernas de Veludo voltaram a atacar, e o velho prefeito Aldric implora por ajuda.\n\nDizem que o dragão Vorthak, outrora guardião destas terras, foi corrompido por uma relíquia maldita — e que apenas reunindo os três Fragmentos da Aurora alguém poderia desfazer o mal pela raiz.\n\nMas isso é lenda. Por ora, um goblin desgarrado avança pela praça em sua direção.",
+    "escolhas": [
+      {
+        "label": "Proteger os aldeões e enfrentar o goblin",
+        "karma": 2,
+        "combate": {
+          "tipo": "Goblin"
+        },
+        "destino": "apos_goblin"
+      },
+      {
+        "label": "Exigir ouro antes de mover um dedo",
+        "karma": -2,
+        "destino": "exigir_ouro"
+      },
+      {
+        "label": "Ignorar tudo e seguir direto para as cavernas",
+        "karma": 0,
+        "destino": "entrada_caverna"
+      }
+    ]
+  },
+  "exigir_ouro": {
+    "texto": "Você cruza os braços e exige pagamento. O prefeito Aldric, indignado, atira uma bolsa de moedas a seus pés — e com ela, um item esquecido de um antigo herói.\n\nEnquanto isso, o goblin ataca de qualquer forma.",
+    "escolhas": [
+      {
+        "label": "Pegar o saque e lutar contra o goblin",
+        "loot": true,
+        "combate": {
+          "tipo": "Goblin"
+        },
+        "destino": "apos_goblin"
+      }
+    ]
+  },
+  "apos_goblin": {
+    "texto": "Com o goblin caído, os aldeões observam você com esperança. Aldric explica que a fonte do mal está nas Cavernas de Veludo, mas adverte: ninguém que partiu apressado jamais voltou. 'Prepare-se na vila primeiro', diz ele, oferecendo algo de seu velho arsenal.",
+    "escolhas": [
+      {
+        "label": "Aceitar uma arma do arsenal",
+        "loot": "arma",
+        "destino": "vila_hub"
+      },
+      {
+        "label": "Aceitar uma armadura do arsenal",
+        "loot": "armadura",
+        "destino": "vila_hub"
+      },
+      {
+        "label": "Recusar — você não precisa de presentes",
+        "karma": 1,
+        "destino": "vila_hub"
+      }
+    ]
+  },
+  "vila_hub": {
+    "texto": "A praça de Pedravale se abre diante de você. A taverna do Javali Dourado ferve de conversas; a forja de Mestre Bran cospe faíscas; e, no alto da colina, o sino do Templo da Aurora dobra suave.\n\nPara onde você vai antes de partir em jornada?",
+    "escolhas": [
+      {
+        "label": "Entrar na Taverna do Javali Dourado",
+        "destino": "taverna"
+      },
+      {
+        "label": "Visitar a Forja de Mestre Bran",
+        "destino": "forja"
+      },
+      {
+        "label": "Subir ao Templo da Aurora",
+        "destino": "templo"
+      },
+      {
+        "label": "Partir para a encruzilhada e iniciar a jornada",
+        "destino": "encruzilhada"
+      }
+    ]
+  },
+  "taverna": {
+    "texto": "Dentro da taverna, o calor da lareira afasta o frio. No balcão, a mercenária Selene afia uma adaga; numa mesa, marinheiros apostam em dados. O taverneiro limpa uma caneca e ergue a sobrancelha para você.",
+    "escolhas": [
+      {
+        "label": "Pagar uma rodada e ouvir os rumores",
+        "destino": "taverna_rumor"
+      },
+      {
+        "label": "Convencer Selene a juntar-se a você",
+        "karma": 1,
+        "aliado": "Selene, a Mercenária",
+        "destino": "vila_hub"
+      },
+      {
+        "label": "Trapacear no jogo de dados",
+        "karma": -2,
+        "loot": true,
+        "destino": "vila_hub"
+      },
+      {
+        "label": "Sair da taverna",
+        "destino": "vila_hub"
+      }
+    ]
+  },
+  "taverna_rumor": {
+    "texto": "Entre goles, um velho bardo se inclina: 'A relíquia que corrompeu Vorthak veio do fundo das Cavernas. Mas há quem diga que, espalhados pelo mundo, restam três Fragmentos da Aurora — no pântano afogado, nas montanhas geladas e no saber de um feiticeiro preso em Aldoria. Reúna-os, e a relíquia poderá ser desfeita... ou refeita.'\n\nEle aceita uma poção como agradecimento e a entrega a você.",
+    "escolhas": [
+      {
+        "label": "Agradecer ao bardo e voltar à praça",
+        "pocao": "cura",
+        "destino": "vila_hub"
+      }
+    ]
+  },
+  "forja": {
+    "texto": "Mestre Bran ergue o martelo sobre a bigorna em brasa. 'Aço de Pedravale não se dobra fácil', resmunga. 'Mas para quem vai encarar Vorthak... posso abrir uma exceção.'",
+    "escolhas": [
+      {
+        "label": "Aceitar uma lâmina recém-forjada",
+        "loot": "arma",
+        "destino": "vila_hub"
+      },
+      {
+        "label": "Aceitar uma armadura reforçada",
+        "loot": "armadura",
+        "destino": "vila_hub"
+      },
+      {
+        "label": "Roubar o aço enquanto Bran se distrai",
+        "karma": -3,
+        "loot": true,
+        "destino": "vila_hub"
+      },
+      {
+        "label": "Agradecer e voltar",
+        "destino": "vila_hub"
+      }
+    ]
+  },
+  "templo": {
+    "texto": "No alto da colina, o Templo da Aurora guarda velas e silêncio. Uma sacerdotisa de mãos enrugadas observa você se aproximar do altar dourado.",
+    "escolhas": [
+      {
+        "label": "Rezar pela bênção da Aurora",
+        "karma": 1,
+        "pocao": "cura_g",
+        "destino": "vila_hub"
+      },
+      {
+        "label": "(Herói) Deixar uma oferenda generosa",
+        "requer_karma": [
+          ">=",
+          3
+        ],
+        "karma": 1,
+        "pocao": "antidoto",
+        "destino": "vila_hub"
+      },
+      {
+        "label": "Saquear as oferendas do altar",
+        "karma": -3,
+        "loot": true,
+        "destino": "vila_hub"
+      },
+      {
+        "label": "Descer de volta à praça",
+        "destino": "vila_hub"
+      }
+    ]
+  },
+  "encruzilhada": {
+    "texto": "Na saída da vila, quatro caminhos se abrem. À esquerda, a Floresta Sussurrante. Ao norte, o Pântano dos Afogados, onde a névoa nunca dorme. Mais além, o Passo da Montanha leva às terras geladas e ao Reino de Aldoria. À frente, a boca escura das Cavernas de Veludo.\n\nVocê também pode vagar pelos arredores para treinar antes de seguir.",
+    "escolhas": [
+      {
+        "label": "Vagar pelos arredores em busca de batalhas (treinar)",
+        "destino": "explorar"
+      },
+      {
+        "label": "Atravessar a Floresta Sussurrante",
+        "destino": "floresta"
+      },
+      {
+        "label": "Entrar no Pântano dos Afogados",
+        "destino": "pantano"
+      },
+      {
+        "label": "Subir o Passo da Montanha",
+        "destino": "montanha"
+      },
+      {
+        "label": "Seguir pela estrada direta a Aldoria",
+        "destino": "reino"
+      },
+      {
+        "label": "Entrar nas Cavernas de Veludo",
+        "destino": "entrada_caverna"
+      }
+    ]
+  },
+  "explorar": {
+    "texto": "Você percorre as trilhas ao redor de Pedravale. O mato range, e há sempre algo à espreita disposto a testar sua lâmina.",
+    "escolhas": [
+      {
+        "label": "Procurar uma criatura para enfrentar",
+        "combate": {
+          "aleatorio": true
+        },
+        "destino": "explorar",
+        "repetivel": true
+      },
+      {
+        "label": "Voltar à encruzilhada",
+        "destino": "encruzilhada"
+      }
+    ]
+  },
+  "floresta": {
+    "texto": "A floresta é densa e úmida. Entre as árvores, você encontra um lobo ferido preso numa armadilha de caçadores. Ele rosna, mas há dor — e algo quase humano — em seus olhos.",
+    "escolhas": [
+      {
+        "label": "Libertar o lobo com cuidado",
+        "karma": 2,
+        "destino": "floresta_liberta"
+      },
+      {
+        "label": "Abatê-lo por segurança",
+        "karma": -1,
+        "combate": {
+          "tipo": "Lobo"
+        },
+        "destino": "floresta_profunda"
+      },
+      {
+        "label": "Tentar capturá-lo em combate",
+        "karma": 0,
+        "combate": {
+          "tipo": "Lobo"
+        },
+        "destino": "floresta_profunda"
+      }
+    ]
+  },
+  "floresta_liberta": {
+    "texto": "Você liberta o lobo. Em vez de fugir, ele se curva — e decide seguir você. Um aliado leal se junta à sua jornada e o guia para o coração da floresta.",
+    "escolhas": [
+      {
+        "label": "Seguir mais fundo com o Lobo Leal",
+        "aliado": "Lobo Leal",
+        "destino": "floresta_profunda"
+      }
+    ]
+  },
+  "floresta_profunda": {
+    "texto": "No coração da Floresta Sussurrante, a luz mal penetra. Você percebe duas presenças antigas: a cabana torta da bruxa Morgana, de onde sobe uma fumaça esverdeada, e uma clareira onde brilha uma fonte feérica de água prateada.",
+    "escolhas": [
+      {
+        "label": "Procurar a bruxa Morgana",
+        "destino": "bruxa"
+      },
+      {
+        "label": "Aproximar-se da fonte feérica",
+        "destino": "fonte_feerica"
+      },
+      {
+        "label": "Cortar caminho rumo a Aldoria",
+        "destino": "reino"
+      }
+    ]
+  },
+  "bruxa": {
+    "texto": "Morgana sorri sem dentes. 'Todo poder tem seu preço, andarilho. Posso lhe dar um presente sombrio... se aceitar carregar um pouco da minha maldição. Ou prefere ir embora de mãos vazias?'",
+    "escolhas": [
+      {
+        "label": "Aceitar o pacto sombrio",
+        "karma": -2,
+        "loot": true,
+        "destino": "floresta_profunda"
+      },
+      {
+        "label": "Recusar e pedir apenas um remédio",
+        "pocao": "cura_g",
+        "destino": "floresta_profunda"
+      },
+      {
+        "label": "Atacar a bruxa e seu servo morto-vivo",
+        "combate": {
+          "tipo": "Esqueleto"
+        },
+        "karma": 1,
+        "destino": "floresta_profunda"
+      }
+    ]
+  },
+  "fonte_feerica": {
+    "texto": "A água da fonte canta baixinho. Pequenas luzes dançam sobre ela — espíritos da mata, curiosos com sua presença. Eles esperam para ver que tipo de pessoa você é.",
+    "escolhas": [
+      {
+        "label": "(Herói) Pedir a bênção e a companhia da mata",
+        "requer_karma": [
+          ">=",
+          3
+        ],
+        "karma": 1,
+        "aliado": "Espírito da Mata",
+        "destino": "fonte_bencao"
+      },
+      {
+        "label": "Beber da água curativa",
+        "pocao": "cura_g",
+        "destino": "floresta_profunda"
+      },
+      {
+        "label": "Profanar a fonte e roubar seu cristal",
+        "karma": -3,
+        "loot": true,
+        "destino": "floresta_profunda"
+      }
+    ]
+  },
+  "fonte_bencao": {
+    "texto": "As luzes envolvem você num calor sereno. Um Espírito da Mata jura segui-lo, e a fonte sussurra um segredo: 'O pântano guarda o primeiro Fragmento da Aurora. Procure o altar afogado.'",
+    "escolhas": [
+      {
+        "label": "Seguir, agradecido, rumo a Aldoria",
+        "destino": "reino"
+      },
+      {
+        "label": "Voltar e explorar o pântano",
+        "destino": "pantano"
+      }
+    ]
+  },
+  "pantano": {
+    "texto": "O Pântano dos Afogados engole seus passos. Bolhas estouram na água lodosa e limos venenosos se contorcem entre as raízes. No meio da névoa, você vislumbra uma estrutura de pedra meio submersa: um altar antigo.",
+    "escolhas": [
+      {
+        "label": "Investigar o altar afogado",
+        "destino": "altar_afogado"
+      },
+      {
+        "label": "Enfrentar os limos venenosos",
+        "combate": {
+          "tipo": "Slime"
+        },
+        "destino": "pantano_fundo"
+      },
+      {
+        "label": "Recuar para a encruzilhada",
+        "destino": "encruzilhada"
+      }
+    ]
+  },
+  "altar_afogado": {
+    "texto": "Sobre o altar encharcado repousa um caco de cristal que pulsa com luz dourada e fria: o PRIMEIRO FRAGMENTO DA AURORA. Símbolos esquecidos advertem que reuni-los pode desfazer qualquer relíquia — para o bem ou para o mal.",
+    "escolhas": [
+      {
+        "label": "Recolher o Fragmento da Aurora",
+        "set_flag": "frag_pantano",
+        "karma": 1,
+        "destino": "pantano_fundo"
+      },
+      {
+        "label": "Deixá-lo onde está e seguir",
+        "destino": "pantano_fundo"
+      }
+    ]
+  },
+  "pantano_fundo": {
+    "texto": "Mais adiante, um troll do brejo guarda a única saída firme do pântano, afundado até os joelhos na lama. Não há como contorná-lo.",
+    "escolhas": [
+      {
+        "label": "Enfrentar o troll do brejo",
+        "combate": {
+          "tipo": "Troll"
+        },
+        "loot": true,
+        "destino": "encruzilhada"
+      },
+      {
+        "label": "Atraí-lo para o atoleiro e fugir",
+        "karma": 0,
+        "destino": "encruzilhada"
+      }
+    ]
+  },
+  "montanha": {
+    "texto": "O Passo da Montanha é uma fita de pedra sobre o abismo, batida por vento gelado. Flocos de neve cortam o ar. No meio da ponte antiga, um vulto imóvel jaz contra o parapeito — uma armadura coberta de gelo.",
+    "escolhas": [
+      {
+        "label": "Examinar o cavaleiro caído",
+        "destino": "cavaleiro_caido"
+      },
+      {
+        "label": "Atravessar a ponte depressa",
+        "destino": "desfiladeiro"
+      }
+    ]
+  },
+  "cavaleiro_caido": {
+    "texto": "Sob o gelo, um cavaleiro de Aldoria abraça, mesmo na morte, um caco luminoso: o SEGUNDO FRAGMENTO DA AURORA. Ao seu lado, a armadura ainda intacta poderia servir a você.",
+    "escolhas": [
+      {
+        "label": "Honrar o morto e recolher o Fragmento",
+        "karma": 1,
+        "set_flag": "frag_montanha",
+        "destino": "desfiladeiro"
+      },
+      {
+        "label": "Tomar a armadura do cavaleiro",
+        "loot": "armadura",
+        "set_flag": "frag_montanha",
+        "destino": "desfiladeiro"
+      },
+      {
+        "label": "Saquear tudo e cuspir sobre o corpo",
+        "karma": -2,
+        "loot": true,
+        "set_flag": "frag_montanha",
+        "destino": "desfiladeiro"
+      }
+    ]
+  },
+  "desfiladeiro": {
+    "texto": "No fim da ponte, um orc das montanhas barra a passagem, rugindo contra o vento. Atrás dele, lá embaixo no vale, brilham os telhados dourados de Aldoria.",
+    "escolhas": [
+      {
+        "label": "Enfrentar o orc das montanhas",
+        "combate": {
+          "tipo": "Orc"
+        },
+        "destino": "reino"
+      },
+      {
+        "label": "Descer pela trilha lateral, evitando-o",
+        "karma": 0,
+        "destino": "reino"
+      }
+    ]
+  },
+  "reino": {
+    "texto": "Os portões dourados de Aldoria se abrem. A Rainha Lysandra recebe você no salão do trono. Ela explica que o dragão Vorthak foi outrora um guardião, corrompido pela relíquia sombria. Nas masmorras, um feiticeiro afirma saber como desfazê-la — e, no pátio, a arena real oferece glória e recompensas a quem provar seu valor.",
+    "escolhas": [
+      {
+        "label": "Pedir clemência ao feiticeiro e ouvi-lo",
+        "karma": 2,
+        "destino": "feiticeiro_aliado"
+      },
+      {
+        "label": "Ameaçar o feiticeiro para extrair a verdade",
+        "karma": -2,
+        "destino": "feiticeiro_ameaca"
+      },
+      {
+        "label": "Provar seu valor na arena real",
+        "destino": "arena"
+      },
+      {
+        "label": "Roubar a coroa da rainha enquanto ela fala",
+        "karma": -3,
+        "combate": {
+          "tipo": "Esqueleto"
+        },
+        "destino": "entrada_caverna"
+      },
+      {
+        "label": "(Herói) Receber a Bênção de Aldoria da rainha",
+        "requer_karma": [
+          ">=",
+          5
+        ],
+        "pocao": "cura_g",
+        "karma": 1,
+        "destino": "entrada_caverna"
+      }
+    ]
+  },
+  "arena": {
+    "texto": "A arena ruge. Areia, sol e o clangor de armas. O mestre de cerimônias anuncia seu nome e solta o desafiante: um campeão esqueleto erguido por necromancia para nunca cansar.",
+    "escolhas": [
+      {
+        "label": "Lutar pela glória de Aldoria",
+        "combate": {
+          "tipo": "Esqueleto"
+        },
+        "karma": 1,
+        "destino": "arena_vitoria"
+      },
+      {
+        "label": "Desistir e voltar ao salão",
+        "destino": "reino"
+      }
+    ]
+  },
+  "arena_vitoria": {
+    "texto": "A multidão grita seu nome! A rainha, impressionada, ordena que lhe entreguem um prêmio digno do arsenal real antes de você partir para as cavernas.",
+    "escolhas": [
+      {
+        "label": "Receber o prêmio e seguir às cavernas",
+        "loot": true,
+        "destino": "entrada_caverna"
+      },
+      {
+        "label": "Voltar ao salão do trono",
+        "destino": "reino"
+      }
+    ]
+  },
+  "feiticeiro_aliado": {
+    "texto": "O feiticeiro Eldrin, grato pela clemência, revela o ritual e lhe entrega uma poção poderosa. 'Há um TERCEIRO Fragmento da Aurora', sussurra, 'e ele não é de pedra — é conhecimento. Eu o entrego a você agora.' Ele jura proteger o reino enquanto você parte.",
+    "escolhas": [
+      {
+        "label": "Aceitar a poção e o saber, e partir",
+        "pocao": "cura_g",
+        "set_flag": "frag_saber",
+        "destino": "entrada_caverna"
+      }
+    ]
+  },
+  "feiticeiro_ameaca": {
+    "texto": "Sob ameaça, o feiticeiro cospe a informação — mas também uma maldição. Você arranca o conhecimento do Terceiro Fragmento, porém a guarda real passa a desconfiar de você. Um esqueleto guardião desperta na masmorra.",
+    "escolhas": [
+      {
+        "label": "Lutar contra o guardião e seguir",
+        "karma": -1,
+        "combate": {
+          "tipo": "Esqueleto"
+        },
+        "set_flag": "frag_saber",
+        "destino": "entrada_caverna"
+      }
+    ]
+  },
+  "entrada_caverna": {
+    "texto": "As Cavernas de Veludo exalam um frio antinatural. Cristais negros pulsam nas paredes. Dois caminhos descem: uma galeria estreita guardada por um orc das profundezas, e uma passagem úmida de onde vem o eco de água — um lago subterrâneo.",
+    "escolhas": [
+      {
+        "label": "Enfrentar o orc na galeria",
+        "combate": {
+          "tipo": "Orc"
+        },
+        "destino": "pre_chefe"
+      },
+      {
+        "label": "Descer até o lago subterrâneo",
+        "destino": "lago_subterraneo"
+      },
+      {
+        "label": "Tentar passar furtivamente pela galeria",
+        "karma": 0,
+        "destino": "furtividade"
+      }
+    ]
+  },
+  "furtividade": {
+    "texto": "Você tenta se esgueirar... mas tropeça num crânio. O orc desperta furioso e ainda chama um troll das cavernas! Você terá de lutar.",
+    "escolhas": [
+      {
+        "label": "Lutar contra o troll",
+        "combate": {
+          "tipo": "Troll"
+        },
+        "destino": "pre_chefe"
+      }
+    ]
+  },
+  "lago_subterraneo": {
+    "texto": "Um lago negro e imóvel reflete cristais bioluminescentes. No centro, sobre uma ilhota, repousa um pedestal vazio — e do fundo das águas sobe um sussurro: a própria relíquia sombria chama por você, prometendo poder.",
+    "escolhas": [
+      {
+        "label": "Ouvir o que a relíquia sussurra",
+        "destino": "reliquia_sussurra"
+      },
+      {
+        "label": "Ignorar a voz e subir para a galeria",
+        "destino": "entrada_caverna"
+      },
+      {
+        "label": "Seguir direto para o covil do dragão",
+        "destino": "pre_chefe"
+      }
+    ]
+  },
+  "reliquia_sussurra": {
+    "texto": "A voz se enrosca em seus pensamentos. 'Os Fragmentos da Aurora podem me destruir... ou podem me REFAZER em algo ainda maior, nas mãos certas.' Ela revela a verdade do ritual — e cabe a você decidir o que fará com esse conhecimento.",
+    "escolhas": [
+      {
+        "label": "Aceitar a verdade sem se deixar tentar",
+        "karma": 1,
+        "set_flag": "verdade",
+        "destino": "lago_subterraneo"
+      },
+      {
+        "label": "Saborear a promessa de poder",
+        "karma": -2,
+        "set_flag": "verdade",
+        "destino": "lago_subterraneo"
+      }
+    ]
+  },
+  "pre_chefe": {
+    "texto": "Você alcança uma vasta câmara. No centro, sobre montanhas de ouro, repousa a relíquia sombria — e acima dela, os olhos flamejantes do Dragão Vorthak se abrem.\n\nEsta é a batalha final. Prepare-se.",
+    "escolhas": [
+      {
+        "label": "Usar este momento para descansar e curar (poção grátis)",
+        "pocao": "cura",
+        "destino": "pre_chefe2"
+      },
+      {
+        "label": "Atacar imediatamente, sem hesitar",
+        "karma": 1,
+        "destino": "pre_chefe2"
+      }
+    ]
+  },
+  "pre_chefe2": {
+    "texto": "O dragão ruge. O chão treme. Avance.",
+    "escolhas": [
+      {
+        "label": "> ENFRENTAR O DRAGÃO VORTHAK",
+        "combate": {
+          "chefe": true
+        },
+        "destino": "decisao_final"
+      }
+    ]
+  },
+  "decisao_final": {
+    "texto": "Vorthak cai, exausto. A relíquia sombria fica exposta, pulsando com poder imenso. O dragão, agora livre da corrupção, implora: 'Destrua a relíquia... ou tome o poder para si.'\n\nEsta é sua decisão final — e ela definirá quem você se tornou. Dizem que apenas os de coração verdadeiramente puro, os já perdidos nas trevas, ou aqueles que reuniram os três Fragmentos da Aurora enxergam certos caminhos.",
+    "escolhas": [
+      {
+        "label": "Destruir a relíquia e libertar a terra",
+        "karma": 4,
+        "destino": "final_heroi"
+      },
+      {
+        "label": "Tomar o poder da relíquia para si",
+        "karma": -4,
+        "destino": "final_vilao"
+      },
+      {
+        "label": "Deixar a relíquia selada e partir sem usá-la",
+        "karma": 0,
+        "destino": "final_neutro"
+      },
+      {
+        "label": "(Herói lendário) Canalizar a luz que acumulou e purificar tudo",
+        "requer_karma": [
+          ">=",
+          5
+        ],
+        "karma": 1,
+        "destino": "final_heroi"
+      },
+      {
+        "label": "(Vilão temível) Fundir-se à relíquia e ascender como tirano",
+        "requer_karma": [
+          "<=",
+          -5
+        ],
+        "karma": -1,
+        "destino": "final_vilao"
+      },
+      {
+        "label": "(* Fragmentos da Aurora *) Forjar a Relíquia da Aurora e refazer o pacto dos guardiões",
+        "requer_flag": [
+          "frag_pantano",
+          "frag_montanha",
+          "frag_saber"
+        ],
+        "destino": "final_guardiao"
+      }
+    ]
+  },
+  "final_heroi": {
+    "texto": "* FINAL HERÓICO *\n\nVocê esmaga a relíquia. A luz volta às Cavernas de Veludo e Vorthak, redimido, jura proteger Pedravale. Aldeões erguem estátuas em sua honra. Seu nome é lembrado por gerações como o Salvador de Pedravale.\n\nFim. Obrigado por jogar!",
+    "escolhas": [],
+    "final": true
+  },
+  "final_vilao": {
+    "texto": "! FINAL SOMBRIO !\n\nVocê absorve o poder da relíquia. Energia obscura percorre suas veias. Os reinos tremem diante de seu novo trono de ossos. Pedravale arde, e você reina como o Senhor das Cavernas. Ninguém ousa desafiá-lo.\n\nFim. Obrigado por jogar!",
+    "escolhas": [],
+    "final": true
+  },
+  "final_neutro": {
+    "texto": "* FINAL AMBÍGUO *\n\nVocê sela a relíquia e parte em silêncio. A terra fica em paz frágil — ninguém sabe seu nome, mas as cavernas dormem novamente. Sua jornada continua, em algum lugar além do horizonte.\n\nFim. Obrigado por jogar!",
+    "escolhas": [],
+    "final": true
+  },
+  "final_guardiao": {
+    "texto": "*** FINAL SECRETO — O GUARDIÃO DA AURORA ***\n\nOs três Fragmentos da Aurora se erguem de suas mãos e se fundem em torno da relíquia sombria, dobrando-a à luz. Onde havia maldição, nasce um pacto: Vorthak desperta renovado e ajoelha-se ao seu lado, não como servo, mas como igual.\n\nVocê não destrói nem domina o poder — você o GUARDA. Pedravale, Aldoria, a floresta, o pântano e as montanhas florescem sob a vigília eterna do Guardião e seu dragão. Bardos cantarão esta lenda enquanto houver quem ouça.\n\nFim. Você encontrou o caminho que poucos enxergam. Obrigado por jogar!",
+    "escolhas": [],
+    "final": true
+  }
+}

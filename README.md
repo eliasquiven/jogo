@@ -10,7 +10,8 @@ pântano, montanha, Aldoria com arena e cavernas profundas), sistema de Karma
 **seleção de dificuldade**, **Fragmentos da Aurora** colecionáveis e **4 finais** —
 incluindo um **final secreto** desbloqueado ao reunir os três fragmentos.
 
-O jogo vive na pasta **`pygame_version/`**.
+O jogo vive na pasta **`pygame_version/`** e também tem uma versão web estática em
+**`docs/`**, pronta para GitHub Pages.
 
 ---
 
@@ -120,6 +121,43 @@ pip install ruff
 ruff check .                      # lint
 python pygame_version/test_jogo.py   # testes headless (SDL_VIDEODRIVER=dummy)
 ```
+
+## Versão web / GitHub Pages
+
+A versão web não precisa de backend nem build. Para testar localmente:
+
+```bash
+python3 -m http.server 4173 --directory docs
+```
+
+Abra `http://localhost:4173/`.
+
+Para hospedar no GitHub Pages, use o workflow já incluído:
+
+- Entre no repositório no GitHub e abra **Settings > Pages**
+- Em **Source**, escolha **GitHub Actions**
+- Faça commit e push para `main`
+- Aguarde o workflow **Deploy GitHub Pages** terminar na aba **Actions**
+
+Também é possível publicar pelo modo clássico em **Settings > Pages**:
+
+- Source: **Deploy from a branch**
+- Branch: `main`
+- Folder: `/docs`
+
+Arquivos principais:
+
+```
+docs/
+├── index.html          # entrada da aplicação web
+├── assets/             # imagens usadas pelo jogo no navegador
+└── web/
+    ├── app.js          # regras, UI, combate, inventário e save localStorage
+    ├── story.json      # história exportada de pygame_version/core.py
+    └── styles.css      # layout responsivo
+```
+
+O save da versão web fica no `localStorage` do navegador.
 
 ## Créditos
 
