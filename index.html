@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Crônicas de Pedravale</title>
+    <link rel="stylesheet" href="docs/web/styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="stage" aria-label="Cena do jogo">
+        <canvas id="scene" width="1280" height="720"></canvas>
+        <div class="topbar">
+          <div>
+            <strong id="top-title">Crônicas de Pedravale</strong>
+            <span id="top-subtitle">RPG de aventura por escolhas</span>
+          </div>
+          <div class="top-actions">
+            <button id="btn-inventory" type="button" title="Inventário">Inventário</button>
+            <button id="btn-map" type="button" title="Mapa">Mapa</button>
+            <button id="btn-save" type="button" title="Salvar">Salvar</button>
+          </div>
+        </div>
+      </section>
+
+      <aside class="side-panel" aria-label="Painel de jogo">
+        <section class="status-grid" id="status"></section>
+        <section class="log-panel" id="log" aria-live="polite"></section>
+        <section class="controls" id="controls"></section>
+      </aside>
+    </main>
+
+    <script type="module" src="docs/web/app.js"></script>
+  </body>
+</html>

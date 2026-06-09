@@ -1,6 +1,14 @@
 const SAVE_VERSION = 2;
 const SAVE_KEY = "cronicas_pedravale_save";
 
+function webPath(path) {
+  return new URL(path, import.meta.url).toString();
+}
+
+function assetPath(path) {
+  return new URL(`../assets/${path}`, import.meta.url).toString();
+}
+
 const RARIDADES = {
   "Comum": 1.0,
   "Raro": 1.4,
@@ -110,14 +118,14 @@ const CENARIO_NO = {
 };
 
 const BG_BY_SCENE = {
-  vila: "assets/vila.png",
-  floresta: "assets/floresta.png",
-  caverna: "assets/caverna_veludo.png",
-  covil: "assets/covil.png",
-  campo: "assets/mapa.jpg",
-  amanhecer: "assets/titulo.jpg",
-  mapa: "assets/mapa.jpg",
-  titulo: "assets/titulo.jpg",
+  vila: assetPath("vila.png"),
+  floresta: assetPath("floresta.png"),
+  caverna: assetPath("caverna_veludo.png"),
+  covil: assetPath("covil.png"),
+  campo: assetPath("mapa.jpg"),
+  amanhecer: assetPath("titulo.jpg"),
+  mapa: assetPath("mapa.jpg"),
+  titulo: assetPath("titulo.jpg"),
 };
 
 const ENEMY_TILES = {
@@ -1214,7 +1222,7 @@ function drawCombat(w, h) {
 }
 
 function drawHero(cx, cy, size) {
-  const tiny = image("assets/tiny_dungeon.png");
+  const tiny = image(assetPath("tiny_dungeon.png"));
   const tile = HERO_TILES[app.player.classe] || HERO_TILES.Cavaleiro;
   if (tiny) {
     ctx.imageSmoothingEnabled = false;
@@ -1227,12 +1235,12 @@ function drawHero(cx, cy, size) {
 }
 
 function drawEnemy(enemy, cx, cy, size) {
-  const dragon = image("assets/dragao_vorthak.png");
+  const dragon = image(assetPath("dragao_vorthak.png"));
   if (enemy.chefe && dragon) {
     drawContain(dragon, cx - size / 2, cy - size / 2, size, size * 0.8);
     return;
   }
-  const tiny = image("assets/tiny_dungeon.png");
+  const tiny = image(assetPath("tiny_dungeon.png"));
   const key = Object.keys(ENEMY_TILES).find((name) => enemy.nome.includes(name));
   if (tiny && key) {
     const tile = ENEMY_TILES[key];
@@ -1297,16 +1305,16 @@ function resizeCanvas() {
 
 async function init() {
   const [story, loadedImages] = await Promise.all([
-    fetch("web/story.json").then((response) => response.json()),
+    fetch(webPath("story.json")).then((response) => response.json()),
     Promise.all([
-      "assets/titulo.jpg",
-      "assets/vila.png",
-      "assets/floresta.png",
-      "assets/caverna_veludo.png",
-      "assets/covil.png",
-      "assets/mapa.jpg",
-      "assets/tiny_dungeon.png",
-      "assets/dragao_vorthak.png",
+      assetPath("titulo.jpg"),
+      assetPath("vila.png"),
+      assetPath("floresta.png"),
+      assetPath("caverna_veludo.png"),
+      assetPath("covil.png"),
+      assetPath("mapa.jpg"),
+      assetPath("tiny_dungeon.png"),
+      assetPath("dragao_vorthak.png"),
     ].map(loadImage)),
   ]);
   app.story = story;
