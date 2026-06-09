@@ -146,6 +146,7 @@ BESTIARIO = {
     "Goblin":    {"hp": 40,  "dano": 12, "defesa": 3,  "xp": 26, "crit": 0.06, "evasao": 0.10, "veneno": 0.0},
     "Lobo":      {"hp": 52,  "dano": 18, "defesa": 4,  "xp": 34, "crit": 0.15, "evasao": 0.18, "veneno": 0.0},
     "Esqueleto": {"hp": 60,  "dano": 17, "defesa": 7,  "xp": 40, "crit": 0.08, "evasao": 0.06, "veneno": 0.0},
+    "Bruxa":     {"hp": 72,  "dano": 22, "defesa": 5,  "xp": 50, "crit": 0.10, "evasao": 0.10, "veneno": 0.55},
     "Orc":       {"hp": 96,  "dano": 26, "defesa": 9,  "xp": 60, "crit": 0.09, "evasao": 0.06, "veneno": 0.0},
     "Troll":     {"hp": 150, "dano": 34, "defesa": 12, "xp": 95, "crit": 0.08, "evasao": 0.03, "veneno": 0.0},
 }
@@ -1059,7 +1060,7 @@ class Historia:
                     {"label": "Recusar e pedir apenas um remédio", "pocao": "cura_g",
                      "destino": "floresta_profunda"},
                     {"label": "Atacar a bruxa e seu servo morto-vivo",
-                     "combate": {"tipo": "Esqueleto"}, "karma": 1,
+                     "combate": {"tipo": "Bruxa"}, "karma": 1,
                      "destino": "floresta_profunda"},
                 ],
             },

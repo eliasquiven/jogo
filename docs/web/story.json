@@ -283,7 +283,7 @@
       {
         "label": "Atacar a bruxa e seu servo morto-vivo",
         "combate": {
-          "tipo": "Esqueleto"
+          "tipo": "Bruxa"
         },
         "karma": 1,
         "destino": "floresta_profunda"

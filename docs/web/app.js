@@ -88,6 +88,7 @@ const BESTIARIO = {
   "Goblin": { hp: 40, dano: 12, defesa: 3, xp: 26, crit: 0.06, evasao: 0.1, veneno: 0 },
   "Lobo": { hp: 52, dano: 18, defesa: 4, xp: 34, crit: 0.15, evasao: 0.18, veneno: 0 },
   "Esqueleto": { hp: 60, dano: 17, defesa: 7, xp: 40, crit: 0.08, evasao: 0.06, veneno: 0 },
+  "Bruxa": { hp: 72, dano: 22, defesa: 5, xp: 50, crit: 0.10, evasao: 0.10, veneno: 0.55 },
   "Orc": { hp: 96, dano: 26, defesa: 9, xp: 60, crit: 0.09, evasao: 0.06, veneno: 0 },
   "Troll": { hp: 150, dano: 34, defesa: 12, xp: 95, crit: 0.08, evasao: 0.03, veneno: 0 },
 };
@@ -141,7 +142,7 @@ const HERO_TILES = {
 
 // Arte dedicada (issue #1). Fallback: tiles do tiny_dungeon acima.
 const CLASS_SPRITE = { Cavaleiro: "cavaleiro.png", Mago: "mago.png", Arqueiro: "arqueira.png" };
-const ENEMY_SPRITE = { Lobo: "lobo.png", Esqueleto: "esqueleto.png", Orc: "orc.png", Troll: "troll.png" };
+const ENEMY_SPRITE = { Lobo: "lobo.png", Esqueleto: "esqueleto.png", Bruxa: "bruxa.png", Orc: "orc.png", Troll: "troll.png" };
 
 const app = {
   story: {},

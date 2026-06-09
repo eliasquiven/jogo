@@ -24,7 +24,7 @@ MONSTRO_TILE = {"Slime": (0, 9), "Goblin": (1, 9)}
 
 # Altura de cada inimigo em pixels de tela (herdado do original)
 SPRITE_ALTURA = {"Slime": 70, "Goblin": 110, "Lobo": 95, "Esqueleto": 130,
-                 "Orc": 150, "Troll": 180, "Drag": 220}
+                 "Bruxa": 138, "Orc": 150, "Troll": 180, "Drag": 220}
 
 # Ícones de item (col,row) no tiny_dungeon
 ITEM_TILE = {
@@ -190,6 +190,7 @@ MONSTRO_ART = {
     "Slime": ("tile", (0, 9)), "Goblin": ("tile", (1, 9)),
     "Lobo": ("img", "lobo.png", "wolf"),
     "Esqueleto": ("img", "esqueleto.png", "skeleton"),
+    "Bruxa": ("img", "bruxa.png", "spirit"),
     "Orc": ("img", "orc.png", "orc"),
     "Troll": ("img", "troll.png", "troll"),
     "Drag": ("img", "dragao_vorthak.png", "dragon"),   # arte dedicada (issue #7)
